@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Typing effect</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins&family=Roboto+Mono:wght@300&display=swap');
+
+        :root {
+            --heading-size: clamp(1.2rem, 3vw, 4rem);
+            --para-size: clamp(6px, 20px, 26px);
+            --light-white: rgb(255, 255, 255);
+            --increased-text: steps(29);
+            --light-black: black;
+            --light-nav-bg: #0020ff1f;
+            --animation-speed: 3s;
+            --gradient_color_1: blue;
+            --gradient_color_2: white;
+        }
+
+        .dark-mode {
+            --light-white: rgb(0, 0, 0);
+            --light-black: rgb(255, 255, 255);
+            --light-nav-bg: #dbdde834;
+            --gradient_color_1: rgb(0, 255, 42);
+            --gradient_color_2: rgb(0, 0, 0);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            font-family: 'Roboto Mono', monospace;
+            /* overflow: hidden; */
+        }
+
+        body {
+            background-color: var(--light-white);
+            color: var(--light-black);
+        }
+
+        nav {
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            height: 50px;
+            position: relative;
+            background: var(--light-nav-bg);
+            padding-top: 3px;
+            padding-left: 10px;
+            padding: 3px 10px 10px 10px;
+            z-index: 999999;
+        }
+
+        .intro-web {
+            max-height: 100vh;
+            /* min-height: 70vh; */
+            text-align: center;
+            display: flex;
+            position: relative;
+            flex-direction: column;
+            align-items: center;
+            z-index: 99999;
+            margin-top: 12vw;
+            justify-content: center;
+            /* cursor: not-allowed; */
+        }
+
+        .typing-test {
+            /* height: 40px; */
+            position: relative;
+            width: fit-content;
+            font-size: var(--heading-size);
+            margin-bottom: 2vw;
+            border-right: 1px solid var(--light-black);
+            padding-right: 10px;
+        }
+
+        .intro-web p {
+            font-size: var(--para-size);
+            font-weight: 200;
+            color: grey;
+            transform: translateY(2rem);
+            animation: show_button 2s calc(var(--animation-speed) + 1s) forwards;
+            opacity: 0;
+        }
+
+        /* ########################################################################
+Ue these property while you want to animate text using css 
+        .typing-test::after,
+        .typing-test::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+        }
+
+         .typing-test::before {
+
+            background-color: rgb(251, 13, 13);
+            animation: movement var(--animation-speed) var(--increased-text) 3s forwards;
+        }
+
+        .typing-test::after {
+            width: 2px;
+            background-color: rgb(0, 0, 0);
+            animation: movement var(--animation-speed) var(--increased-text) 1s forwards,
+                blink 500ms var(--increased-text) 1s infinite;
+
+        }  
+        /* .typing-test {
+            position: relative;
+            width: fit-content;
+            font-size: var(--heading-size);
+            margin-bottom: 2vw;
+
+        } 
+           @keyframes movement {
+            to {
+                left: 100%;
+            }
+        }
+
+        @keyframes blink {
+            to {
+                background-color: transparent;
+            }
+        }
+    
+#########################################################################     */
+        .btn-outline-success {
+            display: block;
+            transform: translateY(2rem);
+            opacity: 0;
+            position: relative;
+            z-index: 66666;
+            animation: show_button 2s calc(var(--animation-speed) + 1s) forwards;
+
+
+        }
+
+        .svg-div {
+            width: 100vw;
+            position: absolute;
+            bottom: 0;
+            z-index: 5555;
+            overflow: hidden;
+            /* opacity: 0; */
+            /* animation: show_button 2s calc(var(--animation-speed) + 2s) forwards; */
+        }
+
+        .tour-tab {
+            display: flex !important;
+            position: absolute;
+            bottom: 0vh;
+            z-index: 6666;
+            opacity: 0;
+            width: 100%;
+            justify-content: center;
+            align-items: center;
+            font-size: var(--heading-size);
+            animation: tour_tab 2s calc(var(--animation-speed) + 2s) forwards;
+            /* border: 2px solid black; */
+        }
+
+        .tour-tab span {
+            padding: 0px 20px;
+            font-size: var(--heading-size);
+        }
+
+        .tour-tab p {
+            margin-bottom: 0px !important;
+        }
+
+        svg {
+            background-color: rgba(0, 0, 0, 0);
+            position: relative;
+            bottom: -70px;
+        }
+
+        /* #################### Animations #########################*/
+        @keyframes upper {
+            to {
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes show_button {
+            to {
+                opacity: 100%;
+                transform: translateY(0);
+
+            }
+        }
+
+        @keyframes tour_tab {
+            to {
+                bottom: 6vh;
+                opacity: 100%;
+            }
+        }
+
+        /* #################### Animations #########################*/
+        /* ################### Media Queries ################################### */
+        @media only screen and (min-height:300px) and (max-height:450px) {
+            .intro-web {
+                margin-top: 2vw;
+            }
+
+            .tour-tab {
+                bottom: 3vw;
+            }
+        }
+
+        @media only screen and (min-height:451px) and (min-width:350px) and (max-width:600px) {
+            .intro-web {
+                margin-top: 30vw;
+            }
+
+            .tour-tab {
+                bottom: 6vw !important;
+                /* animation: tour_tab_ 2s forwards; */
+            }
+
+            @keyframes tour_tab {
+                to {
+                    bottom: 10vw;
+                    opacity: 100%;
+                }
+            }
+
+            svg {
+                width: 230vw;
+            }
+
+        }
+
+        @media only screen and (min-width:601px) and (max-width:910px) {
+            svg {
+                width: 150vw !important;
+            }
+        }
+
+        /* Tis media query change the theme of website according to users window theme here if users window theme is dark then these properties will apply  */
+        /* @media(prefers-color-scheme:dark){
+            body {
+            background-color: black;
+            color: white;
+        }
+        nav p{
+            background-color: blueviolet !important;
+        }
+        } */
+        /* ################ Media Queries ################################### */
+        .bi-sun-fill {
+            color: yellow;
+        }
+
+        .path-0 {
+            animation: pathAnim-0 4s;
+            animation-timing-function: linear;
+            animation-iteration-count: infinite;
+        }
+
+        @keyframes pathAnim-0 {
+            0% {
+                d: path("M 0,600 C 0,600 0,300 0,300 C 102.33492822966508,271.6555023923445 204.66985645933016,243.31100478468898 304,240 C 403.33014354066984,236.68899521531102 499.6555023923445,258.41148325358853 605,291 C 710.3444976076555,323.58851674641147 824.7081339712918,367.04306220095697 907,343 C 989.2918660287082,318.95693779904303 1039.511961722488,227.41626794258374 1123,209 C 1206.488038277512,190.58373205741626 1323.244019138756,245.2918660287081 1440,300 C 1440,300 1440,600 1440,600 Z");
+            }
+
+            25% {
+                d: path("M 0,600 C 0,600 0,300 0,300 C 115.24401913875596,263.2057416267943 230.48803827751192,226.41148325358853 320,226 C 409.5119617224881,225.58851674641147 473.2918660287081,261.5598086124402 574,263 C 674.7081339712919,264.4401913875598 812.3444976076556,231.34928229665073 898,213 C 983.6555023923444,194.65071770334927 1017.3301435406697,191.04306220095694 1099,208 C 1180.6698564593303,224.95693779904306 1310.3349282296651,262.47846889952154 1440,300 C 1440,300 1440,600 1440,600 Z");
+            }
+
+            50% {
+                d: path("M 0,600 C 0,600 0,300 0,300 C 110.22009569377991,283.09090909090907 220.44019138755982,266.18181818181813 311,293 C 401.5598086124402,319.81818181818187 472.45933014354057,390.3636363636364 556,369 C 639.5406698564594,347.6363636363636 735.7224880382777,234.36363636363635 844,203 C 952.2775119617223,171.63636363636365 1072.650717703349,222.1818181818182 1174,252 C 1275.349282296651,281.8181818181818 1357.6746411483255,290.9090909090909 1440,300 C 1440,300 1440,600 1440,600 Z");
+            }
+
+            75% {
+                d: path("M 0,600 C 0,600 0,300 0,300 C 75.54066985645932,275.6650717703349 151.08133971291863,251.33014354066984 265,263 C 378.91866028708137,274.66985645933016 531.2153110047847,322.34449760765546 621,357 C 710.7846889952153,391.65550239234454 738.0574162679427,413.2918660287081 833,391 C 927.9425837320573,368.7081339712919 1090.5550239234449,302.4880382775119 1203,280 C 1315.4449760765551,257.5119617224881 1377.7224880382776,278.75598086124404 1440,300 C 1440,300 1440,600 1440,600 Z");
+            }
+
+            100% {
+                d: path("M 0,600 C 0,600 0,300 0,300 C 102.33492822966508,271.6555023923445 204.66985645933016,243.31100478468898 304,240 C 403.33014354066984,236.68899521531102 499.6555023923445,258.41148325358853 605,291 C 710.3444976076555,323.58851674641147 824.7081339712918,367.04306220095697 907,343 C 989.2918660287082,318.95693779904303 1039.511961722488,227.41626794258374 1123,209 C 1206.488038277512,190.58373205741626 1323.244019138756,245.2918660287081 1440,300 C 1440,300 1440,600 1440,600 Z");
+            }
+        }
+
+        .gradient_color_1 {
+            stop-color: var(--gradient_color_1);
+        }
+
+        .gradient_color_2 {
+            stop-color: var(--gradient_color_2);
+        }
+
+        /* Tis media query change the theme of website according to users window theme here if users window theme is dark then these properties will apply  */
+        /* @media(prefers-color-scheme:dark) {
+
+            body {
+                background-color: black;
+                color: white;
+            }
+
+            .gradient_color_1 {
+                stop-color: rgb(0, 255, 42);
+            }
+
+            .gradient_color_2 {
+                stop-color: rgb(0, 0, 0);
+            }
+        }
+
+        @media(prefers-color-scheme:light) {
+
+            body {
+                background-color: rgb(255, 255, 255);
+                color: rgb(0, 0, 0);
+            }
+
+            .gradient_color_1 {
+                stop-color: rgb(0, 30, 255);
+            }
+
+            .gradient_color_2 {
+                stop-color: rgb(247, 247, 247);
+            }
+        } */
+
+        /* ################ Media Queries ################################### */
+    </style>
+</head>
+
+<body>
+    <nav>
+        <span class="fa fa-home fa-2x"></span>
+        <div>
+            <p class="btn btn-primary" onclick="alertvalue_1()">
+                Coding:30%;
+            </p>
+            <span class="bi bi-moon-stars-fill fa-2x" id="dark"></span>
+        </div>
+    </nav>
+    <div class="intro-web">
+        <h1 class="typing-test" id="animate"></h1>
+
+        <p class="para">
+            Welcome to my Website
+
+        </p>
+        <button type="button" class="btn btn-outline-success" onclick="alertvalue()">Explore</button>
+
+    </div>
+    <div class="svg-div">
+
+        <svg id="svg_1" width="100%" height="100%" id="svg" viewBox="0 0 1440 600" xmlns="http://www.w3.org/2000/svg"
+            class="transition duration-300 ease-in-out delay-150">
+            <defs>
+                <linearGradient id="gradient" x1="1%" y1="38%" x2="99%" y2="62%">
+                    <stop offset="5%" class="gradient_color_1"></stop>
+                    <stop offset="95%" class="gradient_color_2"></stop>
+                </linearGradient>
+            </defs>
+            <path
+                d="M 0,600 C 0,600 0,300 0,300 C 102.33492822966508,271.6555023923445 204.66985645933016,243.31100478468898 304,240 C 403.33014354066984,236.68899521531102 499.6555023923445,258.41148325358853 605,291 C 710.3444976076555,323.58851674641147 824.7081339712918,367.04306220095697 907,343 C 989.2918660287082,318.95693779904303 1039.511961722488,227.41626794258374 1123,209 C 1206.488038277512,190.58373205741626 1323.244019138756,245.2918660287081 1440,300 C 1440,300 1440,600 1440,600 Z"
+                stroke="none" stroke-width="0" fill="url(#gradient)" fill-opacity="1"
+                class="transition-all duration-300 ease-in-out delay-150 path-0">
+
+            </path>
+        </svg>
+    </div>
+    <div class="tour-tab">
+        <p class="taab">
+            Let me take you a tour
+
+        </p>
+        <span class="bi bi-arrow-right-circle"></span>
+    </div>
+    <script>
+
+        function alertvalue() {
+            alert("Bhai abhi kaam chal raha hai")
+        }
+        function alertvalue_1() {
+            alert("Bas itni hi coding aatihai")
+        }
+        var svg_1 = ""
+        //################## Typing effect ###############################        
+        var i = 0;
+        var animation_speed = 130;
+        function typeWriter() {
+            let txt = "Hello! My name is Pankaj kumar"
+
+            if (i < txt.length) {
+                document.getElementById("animate").innerHTML += txt.charAt(i);
+                i++;
+                setTimeout(typeWriter, animation_speed);
+            }
+        }
+        window.onload = typeWriter();
+        //################## Typing effect ###############################   
+        // This line of code is used to crate dark mode by toggle the class name in body 
+        var dark = document.getElementById("dark");
+        dark.onclick = function () {
+            document.body.classList.toggle("dark-mode");
+            if (document.body.classList.contains("dark-mode")) {
+                dark.classList.replace("bi-moon-stars-fill", "bi-sun-fill");
+            } else {
+                dark.classList.replace("bi-sun-fill", "bi-moon-stars-fill");
+            }
+        }
+        // This line of code is used to crate dark mode by toggle the class name in body 
+        var svg_ch = document.getElementById("svg_1");
+        svg_ch.attributes.value.replace("#000000", "#ffff")
+        console.log(typeof svg_ch.ATTRIBUTE_NODE)
+    </script>
+</body>
+
+</html>
